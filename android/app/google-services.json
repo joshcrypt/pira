@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "958947889534",
+    "project_id": "pira-1c3c9",
+    "storage_bucket": "pira-1c3c9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:958947889534:android:57cb4aa5d61db3d488e32f",
+        "android_client_info": {
+          "package_name": "com.pira.pira"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVUdTkW-gkGLTtlNxRJzWghOKW09dqasA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -13,7 +13,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 1;
-  final List _pages = [const CreatePage(), const DashboardPage(), const ViewPage()];
+  final List _pages = [const CreatePage(), const DashboardPage(), ViewPage()];
 
   void _navigationBar(int index) {
     setState(() {

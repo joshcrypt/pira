@@ -1,14 +1,17 @@
 import "package:flutter/material.dart";
+import "package:flutter_slidable/flutter_slidable.dart";
 import "package:intl/intl.dart";
 import "package:pira/models/petrol_expense_item.dart";
 import "package:provider/provider.dart";
 
+import "../../services/pira/pira_service.dart";
 import "../../utilities/common_form.dart";
 
 class ViewPage extends StatelessWidget {
-  const ViewPage({super.key, this.onPressed});
+  ViewPage({super.key, this.onPressed});
 
   final void Function(BuildContext)? onPressed;
+  final PiraService _piraService = PiraService();
 
   @override
   Widget build(BuildContext context) {
@@ -92,73 +95,90 @@ class ViewPage extends StatelessWidget {
           child: ListView.separated(
               itemBuilder: (BuildContext context, int index) {
                 PetrolExpenseItem item = petrolExpenseItems[index];
-                return InkWell(
-                  onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        title: const Text("Update Expense"),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Center(
-                              child: CommonForm(
-                                  expenseItem: item, buttonTitle: 'Update'),
-                            ),
-                          ],
-                        ),
+                return Slidable(
+                  endActionPane: ActionPane(
+                    motion: ScrollMotion(),
+                    children: [
+                      SlidableAction(
+                        backgroundColor: Color(0xFF21B7CA),
+                        foregroundColor: Colors.white,
+                        label: "Delete",
+                        icon: Icons.delete_forever_outlined,
+                        onPressed: (context) {
+                          _piraService.removeUserConsumptionDocument(
+                              item, context);
+                        },
                       ),
-                    );
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 24, vertical: 8.0),
-                    decoration: BoxDecoration(
-                      color: index.isEven
-                          ? const Color(0xFFFEFEFE)
-                          : const Color(0xFFE9E9E9),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(DateFormat.yMMMEd().format(item.createdAt)),
-                            Row(
-                              children: [
-                                const Icon(
-                                  Icons.speed_outlined,
-                                  size: 14,
-                                  color: Colors.cyan,
-                                ),
-                                const SizedBox(
-                                  width: 4,
-                                ),
-                                Text("${item.mileage}"),
-                              ],
-                            ),
-                          ],
+                    ],
+                  ),
+                  child: InkWell(
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: const Text("Update Expense"),
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Center(
+                                child: CommonForm(
+                                    expenseItem: item, buttonTitle: 'Update'),
+                              ),
+                            ],
+                          ),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                                '${item.capacity} Litres @  ${formatCurrency(item.pricePerLitre)}',
-                                style: Theme.of(context).textTheme.bodyLarge),
-                            Text(
-                              formatCurrency(item.amount),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge
-                                  ?.copyWith(
-                                      color: Colors.teal,
-                                      fontWeight: FontWeight.w900),
-                            ),
-                          ],
-                        )
-                      ],
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 24, vertical: 8.0),
+                      decoration: BoxDecoration(
+                        color: index.isEven
+                            ? const Color(0xFFFEFEFE)
+                            : const Color(0xFFE9E9E9),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(DateFormat.yMMMEd().format(item.createdAt)),
+                              Row(
+                                children: [
+                                  const Icon(
+                                    Icons.speed_outlined,
+                                    size: 14,
+                                    color: Colors.cyan,
+                                  ),
+                                  const SizedBox(
+                                    width: 4,
+                                  ),
+                                  Text("${item.mileage}"),
+                                ],
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                  '${item.capacity} Litres @  ${formatCurrency(item.pricePerLitre)}',
+                                  style: Theme.of(context).textTheme.bodyLarge),
+                              Text(
+                                formatCurrency(item.amount),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge
+                                    ?.copyWith(
+                                        color: Colors.teal,
+                                        fontWeight: FontWeight.w900),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 );

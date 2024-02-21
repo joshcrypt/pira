@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:intl/intl.dart";
 import 'package:pira/services/auth/auth_service.dart';
 
 import "../../utilities/common_form.dart";
@@ -22,6 +23,9 @@ class _DashboardPageState extends State<DashboardPage> {
 
   @override
   Widget build(BuildContext context) {
+    final currentDate = DateTime.now();
+    String formattedDate = DateFormat.yMMMd().format(currentDate);
+    print(formattedDate);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Dashboard"),
@@ -32,9 +36,16 @@ class _DashboardPageState extends State<DashboardPage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Row(),
           // Show current Price Per Litre
+          // Show previous readings
           // Add Price Per Litre for the month and show last changed
+          TextFormField(
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              label: Text(""),
+            ),
+          ),
+
           // Create button
           Padding(
             padding: const EdgeInsets.only(right: 20, bottom: 20),

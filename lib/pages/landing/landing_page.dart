@@ -11,7 +11,7 @@ class LandingPage extends StatefulWidget {
 
 class _LandingPageState extends State<LandingPage> {
   int _selectedIndex = 0;
-  final List _pages = [const DashboardPage(), const ViewPage()];
+  final List _pages = [const DashboardPage(), ViewPage()];
 
   void navigateToPage(index) {
     setState(() {

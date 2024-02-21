@@ -28,44 +28,6 @@ class PiraService {
     return snapShot;
   }
 
-// create fuel details
-  Future<(bool, String)> addConsumptionDetails(
-      PetrolExpenseItem petrolExpenseItem, BuildContext context) async {
-    try {
-      await _firestore
-          .collection("consumption")
-          .withConverter(
-            fromFirestore: PetrolExpenseItem.fromFirestore,
-            toFirestore: (PetrolExpenseItem petrolExpenseItem, options) =>
-                petrolExpenseItem.toFirestore(),
-          )
-          .add(petrolExpenseItem)
-          .then((documentSnapshot) {});
-      return (true, 'Created Successfully');
-    } catch (e) {
-      return (false, 'Failed to create');
-    }
-  }
-
-  Future<(bool, String)> updateConsumptionDetails(
-      PetrolExpenseItem petrolExpenseItem, BuildContext context) async {
-    try {
-      await _firestore
-          .collection("consumption")
-          .doc(petrolExpenseItem.id)
-          .withConverter(
-            fromFirestore: PetrolExpenseItem.fromFirestore,
-            toFirestore: (PetrolExpenseItem petrolExpenseItem, options) =>
-                petrolExpenseItem.toFirestore(),
-          )
-          .update(petrolExpenseItem.toFirestore())
-          .then((documentSnapshot) {});
-      return (true, 'Update Successfully');
-    } catch (e) {
-      return (false, 'Failed to Update');
-    }
-  }
-
   Stream<List<PetrolExpenseItem>> fetchUserConsumptionDocument() {
     final currentUser = _authService.getCurrentUser();
     final snapShot = _firestore
@@ -127,6 +89,28 @@ class PiraService {
       return (true, 'Update Successfully');
     } catch (e) {
       return (false, 'Failed to Update');
+    }
+  }
+
+  Future<(bool, String)> removeUserConsumptionDocument(
+      PetrolExpenseItem petrolExpenseItem, BuildContext context) async {
+    final currentUser = _authService.getCurrentUser();
+    try {
+      await _firestore
+          .collection("user_petrol_consumption")
+          .doc(currentUser?.uid)
+          .collection("fuel_data")
+          .doc(petrolExpenseItem.id)
+          .withConverter(
+            fromFirestore: PetrolExpenseItem.fromFirestore,
+            toFirestore: (PetrolExpenseItem petrolExpenseItem, options) =>
+                petrolExpenseItem.toFirestore(),
+          )
+          .delete()
+          .then((documentSnapshot) {});
+      return (true, "Deleted Successfully");
+    } catch (e) {
+      return (false, "Failed to Delete");
     }
   }
 }

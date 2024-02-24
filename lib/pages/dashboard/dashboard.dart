@@ -1,5 +1,7 @@
 import "package:flutter/material.dart";
 import "package:intl/intl.dart";
+import "package:pira/analytics/previous_values/last_fuelled_date.dart";
+import "package:pira/analytics/sum/total_fuel_spent.dart";
 import 'package:pira/services/auth/auth_service.dart';
 
 import "../../utilities/common_form.dart";
@@ -25,25 +27,26 @@ class _DashboardPageState extends State<DashboardPage> {
   Widget build(BuildContext context) {
     final currentDate = DateTime.now();
     String formattedDate = DateFormat.yMMMd().format(currentDate);
-    print(formattedDate);
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Dashboard"),
+        title: const Text("Pira"),
         actions: [
           IconButton(onPressed: logout, icon: const Icon(Icons.logout))
         ],
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Show current Price Per Litre
           // Show previous readings
           // Add Price Per Litre for the month and show last changed
-          TextFormField(
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              label: Text(""),
-            ),
+          const Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              TotalFuelSpent(),
+              LastFuelledDate(),
+            ],
           ),
 
           // Create button

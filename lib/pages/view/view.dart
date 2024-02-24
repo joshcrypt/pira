@@ -97,10 +97,10 @@ class ViewPage extends StatelessWidget {
                 PetrolExpenseItem item = petrolExpenseItems[index];
                 return Slidable(
                   endActionPane: ActionPane(
-                    motion: ScrollMotion(),
+                    motion: const ScrollMotion(),
                     children: [
                       SlidableAction(
-                        backgroundColor: Color(0xFF21B7CA),
+                        backgroundColor: const Color(0xFF21B7CA),
                         foregroundColor: Colors.white,
                         label: "Delete",
                         icon: Icons.delete_forever_outlined,

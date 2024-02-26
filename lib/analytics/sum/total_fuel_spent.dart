@@ -12,23 +12,25 @@ class TotalFuelSpent extends StatelessWidget {
         Provider.of<List<PetrolExpenseItem>>(context);
     double totalAmountSpent = 0;
 
-    for (var item in petrolExpenseItems) {
-      totalAmountSpent += item.amount;
-    }
-    return Container(
-      padding: const EdgeInsets.all(8),
-      margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 12),
-      decoration: BoxDecoration(
-        border: Border.all(
-          width: 1.0,
-          color: Colors.black12,
-        ),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Column(
+    if (petrolExpenseItems.isEmpty) {
+      return CircularProgressIndicator();
+    } else {
+      for (var item in petrolExpenseItems) {
+        totalAmountSpent += item.amount;
+      }
+      return Expanded(
+        child: Container(
+          padding: const EdgeInsets.all(8),
+          margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+          decoration: BoxDecoration(
+            border: Border.all(
+              width: 1.0,
+              color: Colors.black12,
+            ),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               const Text(
                 "Total Amount Spent",
@@ -36,15 +38,17 @@ class TotalFuelSpent extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              Text(
-                formatCurrency(totalAmountSpent),
-                style: TextStyle(color: Colors.deepPurple),
-              )
+              Flexible(
+                child: Text(
+                  formatCurrency(totalAmountSpent),
+                  style: const TextStyle(color: Colors.deepPurple),
+                ),
+              ),
             ],
           ),
-        ],
-      ),
-    );
+        ),
+      );
+    }
   }
 
   static String formatCurrency(

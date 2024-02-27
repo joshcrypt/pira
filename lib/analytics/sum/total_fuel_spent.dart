@@ -40,7 +40,7 @@ class TotalFuelSpent extends StatelessWidget {
               ),
               Flexible(
                 child: Text(
-                  formatCurrency(totalAmountSpent),
+                  formatCurrency(totalAmountSpent) ?? "",
                   style: const TextStyle(color: Colors.deepPurple),
                 ),
               ),

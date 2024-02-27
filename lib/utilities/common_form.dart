@@ -28,6 +28,7 @@ class _CommonFormState extends State<CommonForm> {
   final _dateController = TextEditingController();
   final _mileageController = TextEditingController();
   final _additionalInformationController = TextEditingController();
+  final _amountController = TextEditingController();
 
   // Firestore instance
   final PiraService _piraService = PiraService();
@@ -39,9 +40,9 @@ class _CommonFormState extends State<CommonForm> {
         widget.expenseItem?.createdAt.toString() ?? DateTime.now().toString();
     _mileageController.text = widget.expenseItem?.mileage.toString() ?? '';
     _pplController.text = widget.expenseItem?.pricePerLitre.toString() ?? '';
-    _capacityController.text = widget.expenseItem?.capacity.toString() ?? '';
     _additionalInformationController.text =
         widget.expenseItem?.additionalInfo.toString() ?? '';
+    _amountController.text = widget.expenseItem?.amount.toString() ?? "";
   }
 
   @override
@@ -59,22 +60,33 @@ class _CommonFormState extends State<CommonForm> {
               }
               return null;
             },
-            decoration:
-                _decorationFormTheme("PRICE/LITRE", Icons.currency_exchange),
+            decoration: _decorationFormTheme(
+                "PRICE/LITRE", Icons.local_gas_station_outlined),
           ),
           const SizedBox(
             height: 10,
           ),
           //   Capacity Field
+          // TextFormField(
+          //   controller: _capacityController,
+          //   validator: (value) {
+          //     if (value == null || value.isEmpty) {
+          //       return "Capacity cannot be empty";
+          //     }
+          //     return null;
+          //   },
+          //   decoration: _decorationFormTheme("LITRES", Icons.water_drop),
+          // ),
           TextFormField(
-            controller: _capacityController,
+            controller: _amountController,
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return "Capacity cannot be empty";
+                return "Amount cannot be empty";
               }
               return null;
             },
-            decoration: _decorationFormTheme("LITRES", Icons.water_drop),
+            decoration: _decorationFormTheme(
+                "AMOUNT", Icons.currency_exchange_outlined),
           ),
           const SizedBox(
             height: 10,
@@ -129,9 +141,12 @@ class _CommonFormState extends State<CommonForm> {
                 final petrolExpenseItem = PetrolExpenseItem(
                   id: widget.expenseItem?.id,
                   pricePerLitre: double.parse(_pplController.text),
-                  capacity: double.parse(_capacityController.text),
-                  amount: (double.parse(_pplController.text) *
-                      double.parse(_capacityController.text)),
+                  capacity: double.parse((double.parse(_amountController.text) /
+                          double.parse(_pplController.text))
+                      .toStringAsFixed(2)),
+                  // amount: (double.parse(_pplController.text) *
+                  //     double.parse(_capacityController.text)),
+                  amount: double.parse(_amountController.text),
                   createdAt: DateTime.parse(_dateController.text),
                   mileage: int.parse(_mileageController.text),
                   additionalInfo: _additionalInformationController.text,
@@ -210,7 +225,7 @@ class _CommonFormState extends State<CommonForm> {
     return InputDecoration(
       // filled: true,
       // enabledBorder: const OutlineInputBorder(borderSide: BorderSide.none),
-      border: const OutlineInputBorder(),
+      // border: const OutlineInputBorder(),
       focusedBorder:
           const OutlineInputBorder(borderSide: BorderSide(color: Colors.blue)),
       labelText: label,

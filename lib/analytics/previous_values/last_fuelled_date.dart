@@ -45,8 +45,13 @@ class _LastFuelledDateState extends State<LastFuelledDate> {
                     List<PetrolExpenseItem> petrolExpenseItems, Widget? child) {
                   return Text(
                     DateFormat.yMMMEd()
-                        .format(petrolExpenseItems.last.createdAt)
-                        .toString(),
+                            .format(petrolExpenseItems.last.createdAt)
+                            .toString() ??
+                        "",
+                    style: const TextStyle(
+                      color: Colors.deepPurple,
+                    ),
+
                     // controller: _lastFuelledAtController,
                   );
                 },

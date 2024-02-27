@@ -51,25 +51,28 @@ class _DashboardPageState extends State<DashboardPage> {
             children: [
               Row(
                 children: [
-                  FloatingActionButton(
-                    child: const Icon(Icons.add),
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) => const AlertDialog(
-                          title: Text("Add Expense"),
-                          content: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Center(
-                                child: CommonForm(
-                                    buttonTitle: DashboardPage.formName),
-                              ),
-                            ],
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: FloatingActionButton(
+                      child: const Icon(Icons.add),
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => const AlertDialog(
+                            title: Text("Add Expense"),
+                            content: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Center(
+                                  child: CommonForm(
+                                      buttonTitle: DashboardPage.formName),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
                 ],
               ),

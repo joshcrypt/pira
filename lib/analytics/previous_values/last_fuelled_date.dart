@@ -43,6 +43,9 @@ class _LastFuelledDateState extends State<LastFuelledDate> {
               Consumer(
                 builder: (BuildContext context,
                     List<PetrolExpenseItem> petrolExpenseItems, Widget? child) {
+                  petrolExpenseItems.sort((a, b) {
+                    return a.createdAt.compareTo(b.createdAt);
+                  });
                   return Text(
                     DateFormat.yMMMEd()
                             .format(petrolExpenseItems.last.createdAt)

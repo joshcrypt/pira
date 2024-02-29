@@ -31,54 +31,66 @@ class _DashboardPageState extends State<DashboardPage> {
           IconButton(onPressed: logout, icon: const Icon(Icons.logout))
         ],
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          // MonthlyFuelPrice(),
-          // Show current Price Per Litre
-          // Show previous readings
-          // Add Price Per Litre for the month and show last changed
-          const Row(
-            children: [
-              TotalFuelSpent(),
-              LastFuelledDate(),
-            ],
-          ),
+      body: Container(
+        color: Colors.grey[100],
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            // MonthlyFuelPrice(),
+            // Show current Price Per Litre
+            // Show previous readings
+            // Add Price Per Litre for the month and show last changed
+            const Column(
+              children: [
+                Row(
+                  children: [
+                    TotalFuelSpent(),
+                  ],
+                ),
+                Row(
+                  children: [
+                    LastFuelledDate(),
+                    LastFuelledDate(),
+                  ],
+                ),
+              ],
+            ),
 
-          // Create button
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: FloatingActionButton(
-                      child: const Icon(Icons.add),
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) => const AlertDialog(
-                            title: Text("Add Expense"),
-                            content: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Center(
-                                  child: CommonForm(
-                                      buttonTitle: DashboardPage.formName),
-                                ),
-                              ],
+            // Create button
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: FloatingActionButton(
+                        child: const Icon(Icons.add),
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) => const AlertDialog(
+                              title: Text("Add Expense"),
+                              content: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Center(
+                                    child: CommonForm(
+                                        buttonTitle: DashboardPage.formName),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        );
-                      },
+                          );
+                        },
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ],
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

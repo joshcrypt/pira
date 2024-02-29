@@ -20,31 +20,37 @@ class TotalFuelSpent extends StatelessWidget {
       }
       return Expanded(
         child: Container(
+          height: 100,
           padding: const EdgeInsets.all(8),
           margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
           decoration: BoxDecoration(
-            border: Border.all(
-              width: 1.0,
-              color: Colors.black12,
-            ),
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(12),
+            color: Colors.white,
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Text(
-                "Total Amount Spent",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text(
+                  "CUMULATIVE AMOUNT",
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black54,
+                  ),
                 ),
-              ),
-              Flexible(
-                child: Text(
-                  formatCurrency(totalAmountSpent) ?? "",
-                  style: const TextStyle(color: Colors.deepPurple),
+                Flexible(
+                  child: Text(
+                    formatCurrency(totalAmountSpent) ?? "",
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       );

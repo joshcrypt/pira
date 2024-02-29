@@ -24,19 +24,18 @@ class _LastFuelledDateState extends State<LastFuelledDate> {
           padding: const EdgeInsets.all(8),
           margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
           decoration: BoxDecoration(
-            border: Border.all(
-              width: 1.0,
-              color: Colors.black12,
-            ),
             borderRadius: BorderRadius.circular(8),
+            color: Colors.white,
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               const Text(
-                "Last Fuelled On",
+                "LAST FUELLED ON",
                 style: TextStyle(
-                  fontWeight: FontWeight.bold,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black54,
                 ),
               ),
               // Text(DateFormat.yMMMEd().format(item.createdAt)),
@@ -52,7 +51,9 @@ class _LastFuelledDateState extends State<LastFuelledDate> {
                             .toString() ??
                         "",
                     style: const TextStyle(
-                      color: Colors.deepPurple,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
                     ),
 
                     // controller: _lastFuelledAtController,
